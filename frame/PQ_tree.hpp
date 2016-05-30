@@ -55,6 +55,8 @@ private:
 	bool* data;
 	bool flag;//1:have ans;     0:no ans
 	
+	class No_solution{};
+	
 	void dfs(Node* &x){
 		if(x -> id){
 			x -> size = 1;
@@ -139,7 +141,13 @@ public:
 			data[data_in[i]] = 1;
 		}
 		dfs(root);
-		if(root -> sum) root = solve(root, 0);
+		if(root -> sum) {
+			try{
+				root = solve(root, 0);
+			}catch(...){
+				flag = 0;
+			}
+		}
 	}
 	
 	std::vector<int> print(){
